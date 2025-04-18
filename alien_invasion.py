@@ -1,5 +1,6 @@
 import sys
 import pygame
+from settings import Settings
 
 
 class AlienInvasion:
@@ -10,7 +11,11 @@ class AlienInvasion:
         pygame.init()
 
         # 新建一个分辨率为1200*1942的主界面
-        self.screen = pygame.display.set_mode((800, 1294))
+        self.screen = pygame.display.set_mode(
+            (Settings.screen_width, Settings.screen_height)
+        )
+
+        # 设置窗口标题
         pygame.display.set_caption('Alien Invasion')
 
     def run_game(self):
@@ -21,6 +26,9 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
             
+            # 将整个界面绘制为背景色
+            self.screen.fill(Settings.bgcolor)
+
             # 使最近的绘制可见
             pygame.display.flip()
         
