@@ -12,12 +12,12 @@ class AlienInvasion:
         """ 初始化游戏并创建游戏资源 """
         pygame.init()
 
-        # 新建一个分辨率为1200*1942的主界面
-        self.screen = pygame.display.set_mode((Settings.screen_width, Settings.screen_height))
+        # 新建一个主界面
+        self.screen = pygame.display.set_mode((Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT))
         self.ship = Ship(self)
 
         # 设置窗口标题
-        pygame.display.set_caption('Alien Invasion')
+        pygame.display.set_caption(Settings.GAME_TITLE)
 
     def run_game(self):
         """ 游戏主循环 """
@@ -28,7 +28,7 @@ class AlienInvasion:
             self.ship.update()
             # 绘制屏幕
             self._update_screen()
-    
+
     def _check_events(self):
         """ 处理键盘和鼠标事件 """
         for event in pygame.event.get():
@@ -38,31 +38,28 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-                
-    
+
     def _check_keydown_events(self, event: Event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
-    
+
     def _check_keyup_events(self, event: Event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
-    
+
     def _update_screen(self):
         # 设置背景色
-        self.screen.fill(Settings.bgcolor)
-        
+        self.screen.fill(Settings.BACKGROUND_COLOR)
         # 更新飞船
         self.ship.blitme()
-
         # 使最近的绘制可见
         pygame.display.flip()
-    
-        
+
+
 if __name__ == '__main__':
     # 创建游戏实例并运行游戏
     ai = AlienInvasion()
