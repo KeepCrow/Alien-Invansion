@@ -8,3 +8,9 @@ class Settings:
     # 飞船设置
     SHIP_IMG = 'imgs/ship.png'
     SHIP_SPEED = 1.
+
+    # 子弹设置
+    BULLET_SPEED = 1.
+    BULLET_WIDTH = 3
+    BULLET_HEIGHT = 15
+    BULLET_COLOR = (60, 60, 60)
