@@ -21,19 +21,28 @@ class AlienInvasion:
     def run_game(self):
         """ 游戏主循环 """
         while True:
-            # 监视键盘及鼠标事件
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-            
-            # 将整个界面绘制为背景色
-            self.screen.fill(Settings.bgcolor)
-            self.ship.blitme()
-
-            # 使最近的绘制可见
-            pygame.display.flip()
+            # 处理事件
+            self._check_events()
+            # 绘制屏幕
+            self._update_screen()
+    
+    def _check_events(self):
+        """ 处理键盘和鼠标事件 """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+    
+    def _update_screen(self):
+        # 设置背景色
+        self.screen.fill(Settings.bgcolor)
         
+        # 更新飞船
+        self.ship.blitme()
 
+        # 使最近的绘制可见
+        pygame.display.flip()
+    
+        
 if __name__ == '__main__':
     # 创建游戏实例并运行游戏
     ai = AlienInvasion()
