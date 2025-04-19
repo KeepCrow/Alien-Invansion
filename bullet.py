@@ -16,15 +16,15 @@ class Bullet(Sprite):
 
         # 创建子弹
         self.color = Settings.BULLET_COLOR
-        self.rect = pygame.Rect(0, 0, Settings.BULLET_WIDTH, Settings.BULLET_HEIGHT)
-        self.rect.midtop = game.ship.rect.midtop
+        self.rect = pygame.Rect(0, 0, Settings.BULLET_HEIGHT, Settings.BULLET_WIDTH)
+        self.rect.midright = game.ship.rect.midleft
 
-        self.y = self.rect.y
+        self.x = self.rect.x
 
     def update(self):
         """ 向上移动子弹 """
-        self.y -= Settings.BULLET_SPEED
-        self.rect.y = self.y
+        self.x -= Settings.BULLET_SPEED
+        self.rect.x = self.x
 
     def drawme(self):
         pygame.draw.rect(self.screen, self.color, self.rect)

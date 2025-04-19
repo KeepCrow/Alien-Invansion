@@ -6,7 +6,7 @@ class Settings:
     GAME_TITLE = 'Alien Invasion'
 
     # 飞船设置
-    SHIP_IMG = 'imgs/ship.png'
+    SHIP_IMG = 'imgs/ship-rotate.png'
     SHIP_SPEED = 1.
 
     # 子弹设置
