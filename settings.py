@@ -14,3 +14,7 @@ class Settings:
     BULLET_WIDTH = 3
     BULLET_HEIGHT = 15
     BULLET_COLOR = (60, 60, 60)
+
+    # 外星人设置
+    ALIEN_IMG = 'imgs/alien.png'
+
