@@ -24,9 +24,9 @@ class Ship:
     
     def update(self):
         """ 根据移动标志，调整飞船位置 """
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.rect.x += self.speed
-        elif self.moving_left:
+        elif self.moving_left and self.rect.left > self.screen_rect.left:
             self.rect.x -= self.speed
 
     def blitme(self):
