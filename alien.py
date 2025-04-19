@@ -21,6 +21,7 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 
         self.x = self.rect.x
+        self.y = self.rect.y
 
     def update(self):
         pass
