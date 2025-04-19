@@ -1,66 +1,64 @@
 import sys
 import pygame
 from pygame.event import Event
-from settings import Settings
 from ship import Ship
 
 
 class AlienInvasion:
-    """ 管理游戏资源和行为的类 """
-
     def __init__(self):
-        """ 初始化游戏并创建游戏资源 """
+        # 初始化Pygame
         pygame.init()
 
-        # 新建一个分辨率为1200*1942的主界面
-        self.screen = pygame.display.set_mode((Settings.screen_width, Settings.screen_height))
+        # 创建窗口
+        self.screen = pygame.display.set_mode((800, 900))
+        self.bgcolor = (135, 206, 250)
+        pygame.display.set_caption('外星人入侵')
+
+        # 创建火箭
         self.ship = Ship(self)
 
-        # 设置窗口标题
-        pygame.display.set_caption('Alien Invasion')
-
-    def run_game(self):
-        """ 游戏主循环 """
+    def run(self):
         while True:
-            # 处理事件
-            self._check_events()
-            # 更新飞船位置
-            self.ship.update()
-            # 绘制屏幕
-            self._update_screen()
+            self.check_events()
+            self.ship.move()
+            self.update_screen()
 
-    def _check_events(self):
-        """ 处理键盘和鼠标事件 """
+    def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                self._check_keyup_events(event)
+                self.check_keyup_events(event)
+            elif event.type == pygame.KEYDOWN:
+                self.check_keydown_events(event)
 
-    def _check_keydown_events(self, event: Event):
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = True
-        elif event.key == pygame.K_LEFT:
+    def check_keydown_events(self, event: Event):
+        if event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
 
-    def _check_keyup_events(self, event: Event):
-        if event.key == pygame.K_RIGHT:
-            self.ship.moving_right = False
-        elif event.key == pygame.K_LEFT:
+    def check_keyup_events(self, event: Event):
+        if event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+        elif event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
 
-    def _update_screen(self):
-        # 设置背景色
-        self.screen.fill(Settings.bgcolor)
-        # 更新飞船
+
+    def update_screen(self):
+        self.screen.fill(self.bgcolor)
         self.ship.blitme()
-        # 使最近的绘制可见
         pygame.display.flip()
 
 
 if __name__ == '__main__':
-    # 创建游戏实例并运行游戏
-    ai = AlienInvasion()
-    ai.run_game()
+    game = AlienInvasion()
+    game.run()
