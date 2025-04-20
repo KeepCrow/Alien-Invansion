@@ -1,6 +1,6 @@
 import sys
 import pygame
-from pygame.event import Event
+from random import randint
 from settings import Settings
 from star import Star
 
@@ -29,9 +29,9 @@ class AlienInvasion:
 
     def _create_star(self, row: int, column: int) -> Star:
         star = Star(self)
-        star.x = Settings.STAR_WIDTH + 2 * Settings.STAR_WIDTH * column
+        star.x = Settings.STAR_WIDTH + 3 * Settings.STAR_WIDTH * column + randint(-10, 10)
         star.rect.x = star.x
-        star.y = Settings.STAR_HEIGHT + 2 * Settings.STAR_HEIGHT * row
+        star.y = Settings.STAR_HEIGHT + 3 * Settings.STAR_HEIGHT * row + randint(-10, 10)
         star.rect.y = star.y
         return star
 
