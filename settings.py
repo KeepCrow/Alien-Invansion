@@ -22,6 +22,10 @@ class Settings:
     ALIEN_IMG = 'imgs/alien.png'
     ALIEN_WIDTH = 61
     ALIEN_HEIGHT = 67
+    ALIEN_SPEED = 1.
+    ALIEN_FLEET_DROP_SPEED = ALIEN_HEIGHT
+    # 1 表示右移，-1表示左移
+    ALIEN_FLEET_DIRECTION = 1
 
     AVALIABLE_SPACE_X = SCREEN_WIDTH - (2 * ALIEN_WIDTH)
     NUMBER_ALIEN_X = math.ceil(AVALIABLE_SPACE_X / (2 * ALIEN_WIDTH))

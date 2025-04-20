@@ -24,7 +24,14 @@ class Alien(Sprite):
         self.y = self.rect.y
 
     def update(self):
-        pass
+        self.x += Settings.ALIEN_SPEED * Settings.ALIEN_FLEET_DIRECTION
+        self.rect.x = self.x
+
+        if self.rect.right == self.screen_rect.right:
+            self.x = 0
+            self.y += Settings.ALIEN_FLEET_DROP_SPEED
+            self.rect.x = self.x
+            self.rect.y = self.y
 
     def blitme(self):
         self.screen.blit(self.img, self.rect)
