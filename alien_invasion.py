@@ -51,13 +51,32 @@ class AlienInvasion:
             # 更新子弹的位置
             self.bullets.update()
             # 更新外星人的位置
-            self.aliens.update()
+            self._update_aliens()
             # 删除飞出屏幕的子弹
             for bullet in self.bullets.sprites():
                 if bullet.rect.bottom <= 0:
                     self.bullets.remove(bullet)
             # 绘制屏幕
             self._update_screen()
+
+    def _update_aliens(self):
+        """ 检查是否存在外星人碰到了边界，并根据结果更新外星人位置 """
+        if self._check_fleet_edges():
+            self._change_fleet_direction()
+        self.aliens.update()
+
+    def _check_fleet_edges(self):
+        """ 是否有任意一个外星人碰到了边界 """
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                return True
+        return False
+
+    def _change_fleet_direction(self):
+        """ 将整群外星人下移，并改变方向 """
+        for alien in self.aliens.sprites():
+            alien.drop()
+        Settings.ALIEN_FLEET_DIRECTION *= -1
 
     def _fire(self):
         new_bullet = Bullet(self)

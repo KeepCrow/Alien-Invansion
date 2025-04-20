@@ -24,14 +24,19 @@ class Alien(Sprite):
         self.y = self.rect.y
 
     def update(self):
+        """ 更新外星人的位置 """
         self.x += Settings.ALIEN_SPEED * Settings.ALIEN_FLEET_DIRECTION
         self.rect.x = self.x
 
-        if self.rect.right == self.screen_rect.right:
-            self.x = 0
-            self.y += Settings.ALIEN_FLEET_DROP_SPEED
-            self.rect.x = self.x
-            self.rect.y = self.y
+    def drop(self):
+        """ 让外星人下落 """
+        self.y += Settings.ALIEN_HEIGHT
+        self.rect.y = self.y
+
+    def check_edges(self):
+        """ 判断外星人是否碰到了边界 """
+        return self.rect.left <= self.screen_rect.left or self.rect.right >= self.screen_rect.right
 
     def blitme(self):
+        """ 在screen上绘制外星人 """
         self.screen.blit(self.img, self.rect)
