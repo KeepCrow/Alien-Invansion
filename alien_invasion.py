@@ -49,15 +49,22 @@ class AlienInvasion:
             # 更新飞船位置
             self.ship.update()
             # 更新子弹的位置
-            self.bullets.update()
+            self._update_bullets()
             # 更新外星人的位置
             self._update_aliens()
-            # 删除飞出屏幕的子弹
-            for bullet in self.bullets.sprites():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
             # 绘制屏幕
             self._update_screen()
+
+    def _update_bullets(self):
+        """ 更新子弹的位置，删除消失的子弹 """
+        self.bullets.update()
+
+        for bullet in self.bullets.sprites():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+        # 如果子弹击中外星人，删除子弹和外星人
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
     def _update_aliens(self):
         """ 检查是否存在外星人碰到了边界，并根据结果更新外星人位置 """
