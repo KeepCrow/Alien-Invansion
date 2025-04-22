@@ -14,7 +14,7 @@ class Settings:
 
     # 子弹设置
     BULLET_SPEED = 1.
-    BULLET_WIDTH = 3
+    BULLET_WIDTH = 300
     BULLET_HEIGHT = 15
     BULLET_COLOR = (60, 60, 60)
 
