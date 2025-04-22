@@ -84,7 +84,7 @@ class AlienInvasion:
         self.ship.blitme()
         # 重绘所有子弹
         for bullet in self.bullets.sprites():
-            bullet.drawme()
+            bullet.blitme()
         # 使最近的绘制可见
         pygame.display.flip()
 

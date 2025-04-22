@@ -10,7 +10,12 @@ class Settings:
     SHIP_SPEED = 1.
 
     # 子弹设置
+    BULLET_IMAGE = 'imgs/bullet.png'
     BULLET_SPEED = 1.
-    BULLET_WIDTH = 3
-    BULLET_HEIGHT = 15
-    BULLET_COLOR = (60, 60, 60)
+    BULLET_WIDTH = 48
+    BULLET_HEIGHT = 48
+
+    # 外星人设置
+    ALIEN_IMG = 'imgs/alien.png'
+    ALIEN_WIDTH = 200
+    ALIEN_HEIGTH = 200
