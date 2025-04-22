@@ -19,3 +19,5 @@ class Settings:
     ALIEN_IMG = 'imgs/alien.png'
     ALIEN_WIDTH = 200
     ALIEN_HEIGTH = 200
+    ALIEN_MAX_HEALTH = 100
+    ALIEN_SPEED = .1

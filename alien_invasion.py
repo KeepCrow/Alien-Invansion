@@ -4,6 +4,7 @@ from pygame.event import Event
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 
 class AlienInvasion:
@@ -19,6 +20,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         # 新建一个子弹组
         self.bullets = pygame.sprite.Group()
+        # 新建一个外星人组
+        self.aliens = pygame.sprite.Group()
+        self.aliens.add(Alien(self))
 
         # 设置窗口标题
         pygame.display.set_caption(Settings.GAME_TITLE)
@@ -31,13 +35,26 @@ class AlienInvasion:
             # 更新飞船位置
             self.ship.update()
             # 更新子弹的位置
-            self.bullets.update()
-            # 删除飞出屏幕的子弹
-            for bullet in self.bullets.sprites():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            self._update_bullets()
+            # 更新敌人的位置
+            self.aliens.update()
             # 绘制屏幕
             self._update_screen()
+
+    def _update_bullets(self):
+        self.bullets.update()
+
+        # 删除飞出屏幕的子弹
+        for bullet in self.bullets.sprites():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
+        # 碰撞
+        collision = pygame.sprite.groupcollide(self.bullets, self.aliens, True, False)
+        for aliens in collision.values():
+            aliens[0].health -= 10
+            if aliens[0].health <= 0:
+                self.aliens.remove(aliens[0])
 
     def _fire(self):
         print('Fire')
@@ -85,6 +102,9 @@ class AlienInvasion:
         # 重绘所有子弹
         for bullet in self.bullets.sprites():
             bullet.blitme()
+        # 重绘敌人
+        for alien in self.aliens:
+            alien.blitme()
         # 使最近的绘制可见
         pygame.display.flip()
 

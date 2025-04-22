@@ -8,6 +8,9 @@ class Alien(Sprite):
     def __init__(self, game):
         super().__init__()
 
+        # 血量
+        self.health = Settings.ALIEN_MAX_HEALTH
+
         # 主屏幕信息
         self.screen: Surface = game.screen
         self.screen_rect = self.screen.get_rect()
@@ -15,8 +18,12 @@ class Alien(Sprite):
         # 加载图片
         self.img = pygame.image.load(Settings.ALIEN_IMG)
         self.rect = self.img.get_rect()
-        self.rect.left = self.screen_rect.left
-        self.rect.centery = self.screen_rect.width // 2
+        self.rect.midleft = self.screen_rect.midleft
+        self.x = 0
+
+    def update(self):
+        self.x += Settings.ALIEN_SPEED
+        self.rect.x = self.x
 
     def blitme(self):
         self.screen.blit(self.img, self.rect)
