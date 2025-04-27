@@ -7,6 +7,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from button import Button
 
 
 class AlienInvasion:
@@ -28,7 +29,9 @@ class AlienInvasion:
         # 新建一个信息统计实例
         self.stats = GameStats(self)
         # 新建游戏启动后的状态
-        self.game_active = True
+        self.game_active = False
+        # 新建Play按钮
+        self.playbutton = Button(self, 'Play')
 
         # 设置窗口标题
         pygame.display.set_caption(Settings.GAME_TITLE)
@@ -106,10 +109,6 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """ 响应飞船与外星人的碰撞 """
-        if self.stats.remain_ship <= 0:
-            self.game_active = False
-            return
-
         # 剩余飞船数量减一
         self.stats.remain_ship -= 1
 
@@ -120,6 +119,12 @@ class AlienInvasion:
         # 新建一组外星人，重置飞船飞船
         self._create_fleet()
         self.ship.center_ship()
+
+        if self.stats.remain_ship <= 0:
+            self.game_active = False
+            # 刷新一下屏幕
+            self._update_screen()
+            return
 
         # 暂停半秒
         time.sleep(0.5)
@@ -150,6 +155,14 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        """ 当玩家单机Play按钮时，游戏开始 """
+        if self.playbutton.rect.collidepoint(mouse_pos):
+            self.game_active = True
 
     def _check_keydown_events(self, event: Event):
         if event.key == pygame.K_RIGHT:
@@ -176,6 +189,9 @@ class AlienInvasion:
         # 重绘所有外星人
         for alien in self.aliens.sprites():
             alien.blitme()
+        # 重绘按钮
+        if not self.game_active:
+            self.playbutton.draw_button()
         # 使最近的绘制可见
         pygame.display.flip()
 
