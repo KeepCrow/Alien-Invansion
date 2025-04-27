@@ -122,6 +122,7 @@ class AlienInvasion:
 
         if self.stats.remain_ship <= 0:
             self.game_active = False
+            pygame.mouse.set_visible(True)
             # 刷新一下屏幕
             self._update_screen()
             return
@@ -161,9 +162,12 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """ 当玩家单机Play按钮时，游戏开始 """
-        if self.playbutton.rect.collidepoint(mouse_pos):
+        button_clicked = self.playbutton.rect.collidepoint(mouse_pos)
+
+        if button_clicked and not self.game_active:
             self.game_active = True
             self.stats.reset_stats()
+            pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event: Event):
         if event.key == pygame.K_RIGHT:
