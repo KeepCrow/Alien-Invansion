@@ -83,8 +83,12 @@ class AlienInvasion:
 
         # 如果外星人被消灭，再创建一群
         if not self.aliens:
-            self.bullets.empty()
-            self._create_fleet()
+            self._next_level()
+
+    def _next_level(self):
+        self.bullets.empty()
+        self._create_fleet()
+        Settings.level_up()
 
     def _update_aliens(self):
         """ 检查是否存在外星人碰到了边界，并根据结果更新外星人位置 """
@@ -168,6 +172,7 @@ class AlienInvasion:
             self.game_active = True
             self.stats.reset_stats()
             pygame.mouse.set_visible(False)
+            Settings.reset()
 
     def _check_keydown_events(self, event: Event):
         if event.key == pygame.K_RIGHT:

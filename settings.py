@@ -10,11 +10,9 @@ class Settings:
 
     # 飞船设置
     SHIP_IMG = 'imgs/ship.png'
-    SHIP_SPEED = 1.
     SHIP_LIMIT = 3
 
     # 子弹设置
-    BULLET_SPEED = 1.
     BULLET_WIDTH = 300
     BULLET_HEIGHT = 15
     BULLET_COLOR = (60, 60, 60)
@@ -23,10 +21,6 @@ class Settings:
     ALIEN_IMG = 'imgs/alien.png'
     ALIEN_WIDTH = 61
     ALIEN_HEIGHT = 67
-    ALIEN_SPEED = 1.1
-    ALIEN_FLEET_DROP_SPEED = ALIEN_HEIGHT
-    # 1 表示右移，-1表示左移
-    ALIEN_FLEET_DIRECTION = 1
 
     AVALIABLE_SPACE_X = SCREEN_WIDTH - (2 * ALIEN_WIDTH)
     NUMBER_ALIEN_X = math.ceil(AVALIABLE_SPACE_X / (2 * ALIEN_WIDTH))
@@ -39,3 +33,21 @@ class Settings:
     BUTTON_COLOR = (0, 135, 0)
     BUTTON_TEXT_COLOR = (255, 255, 255)
     BUTTON_TEXT_SIZE = 48
+
+    # 难度攀升设置
+    SPEEDUP_SCALE = 1.1
+
+    @classmethod
+    def level_up(cls):
+        cls.SHIP_SPEED *= cls.SPEEDUP_SCALE
+        cls.BULLET_SPEED *= cls.SPEEDUP_SCALE
+        cls.ALIEN_SPEED *= cls.SPEEDUP_SCALE
+
+    @classmethod
+    def reset(cls):
+        cls.SHIP_SPEED = 1.
+        cls.ALIEN_SPEED = 1.1
+        cls.ALIEN_FLEET_DROP_SPEED = cls.ALIEN_HEIGHT
+        # 1 表示右移，-1表示左移
+        cls.ALIEN_FLEET_DIRECTION = 1
+        cls.BULLET_SPEED = 1.
