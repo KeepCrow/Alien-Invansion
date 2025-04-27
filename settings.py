@@ -11,6 +11,7 @@ class Settings:
     # 飞船设置
     SHIP_IMG = 'imgs/ship.png'
     SHIP_SPEED = 1.
+    SHIP_LIMIT = 3
 
     # 子弹设置
     BULLET_SPEED = 1.
@@ -22,7 +23,7 @@ class Settings:
     ALIEN_IMG = 'imgs/alien.png'
     ALIEN_WIDTH = 61
     ALIEN_HEIGHT = 67
-    ALIEN_SPEED = .1
+    ALIEN_SPEED = 1.1
     ALIEN_FLEET_DROP_SPEED = ALIEN_HEIGHT
     # 1 表示右移，-1表示左移
     ALIEN_FLEET_DIRECTION = 1

@@ -15,17 +15,23 @@ class Ship:
 
         # 将图片放在默认位置：屏幕底部中央
         self.rect.midbottom = self.screen_rect.midbottom
+        self.x = self.rect.x
 
         # 移动标志
         self.moving_right = False
         self.moving_left = False
 
+    def center_ship(self):
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+
     def update(self):
         """ 根据移动标志，调整飞船位置 """
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.rect.x += Settings.SHIP_SPEED
+            self.x += Settings.SHIP_SPEED
         elif self.moving_left and self.rect.left > self.screen_rect.left:
-            self.rect.x -= Settings.SHIP_SPEED
+            self.x -= Settings.SHIP_SPEED
+        self.rect.x = self.x
 
     def blitme(self):
         """ 在指定位置绘制飞船 """

@@ -1,10 +1,12 @@
 import sys
+import time
 import pygame
 from pygame.event import Event
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from game_stats import GameStats
 
 
 class AlienInvasion:
@@ -23,6 +25,8 @@ class AlienInvasion:
         # 新建一个外星人组
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
+        # 新建一个信息统计实例
+        self.stats = GameStats(self)
 
         # 设置窗口标题
         pygame.display.set_caption(Settings.GAME_TITLE)
@@ -79,6 +83,37 @@ class AlienInvasion:
         if self._check_fleet_edges():
             self._change_fleet_direction()
         self.aliens.update()
+
+        # 检测外星人是否撞到了飞船
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+
+        # 检测外星人是否撞到了地面
+        self._check_aliens_ground()
+
+    def _check_aliens_ground(self):
+        """ 检测是否有外星人到达了屏幕地面 """
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= Settings.SCREEN_HEIGHT:
+                """ 属于失败的清空，与飞船被撞一样处理 """
+                self._ship_hit()
+                break
+
+    def _ship_hit(self):
+        """ 响应飞船与外星人的碰撞 """
+        # 剩余飞船数量减一
+        self.stats.remain_ship -= 1
+
+        # 清空外星人和子弹
+        self.bullets.empty()
+        self.aliens.empty()
+
+        # 新建一组外星人，重置飞船飞船
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # 暂停半秒
+        time.sleep(0.5)
 
     def _check_fleet_edges(self):
         """ 是否有任意一个外星人碰到了边界 """
