@@ -27,6 +27,8 @@ class AlienInvasion:
         self._create_fleet()
         # 新建一个信息统计实例
         self.stats = GameStats(self)
+        # 新建游戏启动后的状态
+        self.game_active = True
 
         # 设置窗口标题
         pygame.display.set_caption(Settings.GAME_TITLE)
@@ -50,12 +52,15 @@ class AlienInvasion:
         while True:
             # 处理事件
             self._check_events()
-            # 更新飞船位置
-            self.ship.update()
-            # 更新子弹的位置
-            self._update_bullets()
-            # 更新外星人的位置
-            self._update_aliens()
+
+            if self.game_active:
+                # 更新飞船位置
+                self.ship.update()
+                # 更新子弹的位置
+                self._update_bullets()
+                # 更新外星人的位置
+                self._update_aliens()
+
             # 绘制屏幕
             self._update_screen()
 
@@ -101,6 +106,10 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """ 响应飞船与外星人的碰撞 """
+        if self.stats.remain_ship <= 0:
+            self.game_active = False
+            return
+
         # 剩余飞船数量减一
         self.stats.remain_ship -= 1
 
