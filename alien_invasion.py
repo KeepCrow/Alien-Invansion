@@ -163,6 +163,7 @@ class AlienInvasion:
         """ 当玩家单机Play按钮时，游戏开始 """
         if self.playbutton.rect.collidepoint(mouse_pos):
             self.game_active = True
+            self.stats.reset_stats()
 
     def _check_keydown_events(self, event: Event):
         if event.key == pygame.K_RIGHT:
