@@ -22,16 +22,16 @@ class Button:
         self.rect.center = self.screen_rect.center
 
         # 按钮标签仅创建一次
-        self._prepare_msg(msg)
+        self._render(msg)
 
-    def _prepare_msg(self, msg: str):
+    def _render(self, msg: str):
         """ 将msg渲染为图像，并使其在按钮上居中 """
         font = pygame.font.SysFont('幼圆', self.text_size)
         self.msg_image = font.render(msg, True, self.text_color, self.color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
-    def draw_button(self):
+    def blitme(self):
         """ 绘制一个用颜色填充的按钮，再绘制文本 """
         self.screen.fill(self.color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)

@@ -8,6 +8,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from scoreboard import ScoreBoard
 
 
 class AlienInvasion:
@@ -32,6 +33,8 @@ class AlienInvasion:
         self.game_active = False
         # 新建Play按钮
         self.playbutton = Button(self, 'Play')
+        # 新建一个得分板
+        self.scoreboard = ScoreBoard(self)
 
         # 设置窗口标题
         pygame.display.set_caption(Settings.GAME_TITLE)
@@ -43,6 +46,7 @@ class AlienInvasion:
                 self.aliens.add(self._create_alien(row, col))
 
     def _create_alien(self, row: int, column: int) -> Alien:
+        """ 创建一个外星人 """
         alien = Alien(self)
         alien.x = Settings.ALIEN_WIDTH + 2 * Settings.ALIEN_WIDTH * column
         alien.rect.x = alien.x
@@ -63,6 +67,8 @@ class AlienInvasion:
                 self._update_bullets()
                 # 更新外星人的位置
                 self._update_aliens()
+                # 更新得分板
+                self.scoreboard.render()
 
             # 绘制屏幕
             self._update_screen()
@@ -80,6 +86,8 @@ class AlienInvasion:
     def _check_bullet_alien_collisions(self):
         # 如果子弹击中外星人，删除子弹和外星人
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        if collisions:
+            self.stats.score += Settings.ALIEN_SCORE
 
         # 如果外星人被消灭，再创建一群
         if not self.aliens:
@@ -201,7 +209,9 @@ class AlienInvasion:
             alien.blitme()
         # 重绘按钮
         if not self.game_active:
-            self.playbutton.draw_button()
+            self.playbutton.blitme()
+        # 重绘得分板
+        self.scoreboard.blitme()
         # 使最近的绘制可见
         pygame.display.flip()
 

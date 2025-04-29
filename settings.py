@@ -13,7 +13,7 @@ class Settings:
     SHIP_LIMIT = 3
 
     # 子弹设置
-    BULLET_WIDTH = 300
+    BULLET_WIDTH = 3
     BULLET_HEIGHT = 15
     BULLET_COLOR = (60, 60, 60)
 
@@ -33,6 +33,11 @@ class Settings:
     BUTTON_COLOR = (0, 135, 0)
     BUTTON_TEXT_COLOR = (255, 255, 255)
     BUTTON_TEXT_SIZE = 48
+
+    # 得分板设置
+    SCORE_BOARD_TEXT_COLOR = (30, 30, 30)
+    SCORE_BOARD_TEXT_SIZE = 48
+    ALIEN_SCORE = 40
 
     # 难度攀升设置
     SPEEDUP_SCALE = 1.1
