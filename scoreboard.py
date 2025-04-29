@@ -21,7 +21,8 @@ class ScoreBoard:
         self.render()
 
     def render(self):
-        score_str = str(self.stats.score)
+        rounded_score = round(self.stats.score, -1)
+        score_str = str(rounded_score)
         self.score_img = self.font.render(score_str, True, self.text_color, Settings.BACKGROUND_COLOR)
 
         # 将图片放在右上角

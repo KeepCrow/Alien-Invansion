@@ -41,12 +41,14 @@ class Settings:
 
     # 难度攀升设置
     SPEEDUP_SCALE = 1.1
+    SCOREUP_SCALE = 1.5
 
     @classmethod
     def level_up(cls):
         cls.SHIP_SPEED *= cls.SPEEDUP_SCALE
         cls.BULLET_SPEED *= cls.SPEEDUP_SCALE
         cls.ALIEN_SPEED *= cls.SPEEDUP_SCALE
+        cls.ALIEN_SCORE *= cls.SCOREUP_SCALE
 
     @classmethod
     def reset(cls):
