@@ -13,7 +13,7 @@ class Settings:
     SHIP_LIMIT = 3
 
     # 子弹设置
-    BULLET_WIDTH = 300
+    BULLET_WIDTH = 3
     BULLET_HEIGHT = 15
     BULLET_COLOR = (60, 60, 60)
 
@@ -53,7 +53,7 @@ class Settings:
     @classmethod
     def reset(cls):
         cls.SHIP_SPEED = 1.
-        cls.ALIEN_SPEED = 1.1
+        cls.ALIEN_SPEED = .1
         cls.ALIEN_FLEET_DROP_SPEED = cls.ALIEN_HEIGHT
         # 1 表示右移，-1表示左移
         cls.ALIEN_FLEET_DIRECTION = 1
